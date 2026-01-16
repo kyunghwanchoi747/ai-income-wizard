@@ -2,12 +2,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import { generateWithGPT } from '@/lib/openai';
 import {
   searchShopping,
-  getSearchTrend,
   analyzePriceRange,
   analyzeShops,
-  getMonthsAgo,
-  getToday
 } from '@/lib/naver';
+
+// Vercel 함수 타임아웃 설정 (최대 60초 - Pro 필요, 무료는 10초)
+export const maxDuration = 60;
 
 export async function POST(request: NextRequest) {
   try {
@@ -24,7 +24,6 @@ export async function POST(request: NextRequest) {
 
     // 실제 네이버 데이터 수집
     let shoppingData = null;
-    let trendData = null;
     let priceAnalysis = null;
     let topShops = null;
 
@@ -38,15 +37,7 @@ export async function POST(request: NextRequest) {
       console.log('쇼핑 API 스킵');
     }
 
-    try {
-      trendData = await getSearchTrend(
-        keywords.slice(0, 3),
-        getMonthsAgo(12),
-        getToday()
-      );
-    } catch (e) {
-      console.log('데이터랩 API 스킵');
-    }
+    // 트렌드 API는 시간이 오래 걸려서 스킵
 
     // 스타일/타겟/가격 한글 변환
     const styleMap: Record<string, string> = {
@@ -204,8 +195,9 @@ ${realDataContext}
     });
   } catch (error) {
     console.error('Package API Error:', error);
+    const errorMessage = error instanceof Error ? error.message : '알 수 없는 오류';
     return NextResponse.json(
-      { error: '패키지 생성에 실패했습니다. 다시 시도해주세요.' },
+      { error: `패키지 생성 실패: ${errorMessage}` },
       { status: 500 }
     );
   }
