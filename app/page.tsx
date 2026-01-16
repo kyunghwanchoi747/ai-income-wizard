@@ -99,6 +99,30 @@ export default function Home() {
               </svg>
             }
           />
+
+          <ToolCard
+            href="/shorts"
+            title="쇼츠/릴스 대본 생성기"
+            description="유튜브 쇼츠, 인스타그램 릴스에서 터지는 60초 대본을 만들어드려요."
+            color="bg-pink-500"
+            icon={
+              <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+              </svg>
+            }
+          />
+
+          <ToolCard
+            href="/youtube"
+            title="유튜브 스크립트 생성기"
+            description="주제만 입력하면 오프닝부터 클로징까지 완벽한 영상 대본을 짜드려요."
+            color="bg-red-500"
+            icon={
+              <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+              </svg>
+            }
+          />
         </div>
 
         {/* 사용 안내 */}
